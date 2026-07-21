@@ -1,0 +1,8 @@
+/* Single photo fills the camera screen (Device.css already covers img sizing;
+   this is the styling hook for the future multi-photo gallery/carousel). */
+.camera-gallery {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

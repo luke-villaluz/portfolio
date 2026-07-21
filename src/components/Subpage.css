@@ -1,0 +1,33 @@
+.subpage {
+  min-height: 100vh;
+  padding: 2rem 2rem 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subpage__back {
+  align-self: flex-start;
+  color: #6b6b6b;
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+
+.subpage__back:hover {
+  color: var(--ink);
+}
+
+.subpage__content {
+  width: 100%;
+  max-width: 640px;
+  margin-top: 14vh;
+}
+
+.subpage__title {
+  margin: 0 0 1.5rem;
+  font-weight: 500;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  letter-spacing: -0.01em;
+}

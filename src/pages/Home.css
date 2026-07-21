@@ -1,0 +1,44 @@
+.page {
+  min-height: 100vh;
+  padding: 4rem 2rem 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.page__name {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  letter-spacing: -0.01em;
+}
+
+/* 2x2 grid, matching the sketch */
+.grid {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5rem 6rem;
+  place-items: center;
+}
+
+/* keep each cell's device from stretching full-width */
+.grid > .device {
+  justify-self: center;
+}
+
+/* Device-content-specific styles live with their components:
+   .music-screen -> SpotifyPlayer.css, .phone-screen -> PhoneClock.css */
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+}

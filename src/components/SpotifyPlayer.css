@@ -1,0 +1,27 @@
+/* The iPod Device screen (given screenClassName="music-screen") is the scroll
+   viewport for the Spotify embed. The embed renders its whole tracklist only
+   when the iframe is tall enough — it fills its height with rows and has no
+   internal scroll — so we size the iframe to fit the entire playlist and scroll
+   the screen instead. --sp-list-height is in cqw so it tracks the iPod width
+   (row height scales with width); it's tuned to end just after the last song.
+   Bump it if the playlist grows so the final tracks aren't cut off. */
+.music-screen {
+  container-type: size;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  --sp-list-height: 391cqw;
+}
+
+.music-screen::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.device__screen.music-screen > .spotify-player {
+  position: static;
+  display: block;
+  width: 100%;
+  height: var(--sp-list-height);
+  object-fit: unset;
+  border: 0;
+}

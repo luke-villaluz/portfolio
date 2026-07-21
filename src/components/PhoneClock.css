@@ -1,0 +1,32 @@
+/* the phone Device screen becomes a container so the clock can size in cqw */
+.phone-screen {
+  container-type: inline-size;
+}
+
+.phone-clock {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12cqw;
+  /* classic blue backlit LCD */
+  background: #7fa1e6;
+  color: #0b1330;
+  font-family: 'Press Start 2P', ui-monospace, monospace;
+  text-align: center;
+  line-height: 1;
+  /* keep the pixel edges crisp */
+  -webkit-font-smoothing: none;
+  text-rendering: geometricPrecision;
+}
+
+.phone-clock__time {
+  font-size: 13cqw;
+}
+
+.phone-clock__date {
+  font-size: 9cqw;
+  color: #16214a;
+}
