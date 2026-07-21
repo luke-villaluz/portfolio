@@ -1,0 +1,12 @@
+{
+  // Deploys the built static site (dist/) to Cloudflare as an assets-only Worker.
+  // Build command: `npm run build`  →  produces ./dist
+  // Deploy command: `npx wrangler deploy`  →  uploads ./dist
+  "name": "portfolio",
+  "compatibility_date": "2025-07-01",
+  "assets": {
+    "directory": "./dist",
+    // serve index.html for client-side routes (also fine with HashRouter)
+    "not_found_handling": "single-page-application"
+  }
+}
