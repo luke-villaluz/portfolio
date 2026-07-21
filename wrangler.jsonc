@@ -8,5 +8,8 @@
     "directory": "./dist",
     // serve index.html for client-side routes (also fine with HashRouter)
     "not_found_handling": "single-page-application"
-  }
+  },
+  // attach the custom domain (zone is on this Cloudflare account, so wrangler
+  // provisions the DNS record + SSL automatically on deploy)
+  "routes": [{ "pattern": "lukevillaluz.com", "custom_domain": true }]
 }
