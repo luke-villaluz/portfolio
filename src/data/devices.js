@@ -79,3 +79,15 @@ export const DEVICES = [
     content: { kind: 'clock' },
   },
 ]
+
+/**
+ * Images the landing page must load before it's shown (via the loader):
+ * every device frame plus the first visible content image. Galleries only
+ * show their first photo up front, so the rest load lazily afterward.
+ */
+export const PRELOAD_IMAGES = DEVICES.flatMap((device) => {
+  const images = [device.frame]
+  if (device.content.kind === 'image') images.push(device.content.src)
+  if (device.content.kind === 'gallery') images.push(device.content.photos[0])
+  return images
+}).filter(Boolean)

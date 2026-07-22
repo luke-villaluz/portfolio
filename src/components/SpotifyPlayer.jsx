@@ -1,3 +1,4 @@
+import { useTrackedAsset } from '../lib/assetGate.js'
 import './SpotifyPlayer.css'
 
 /**
@@ -12,6 +13,8 @@ import './SpotifyPlayer.css'
  */
 export default function SpotifyPlayer({ playlistId }) {
   const src = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`
+  // let the page loader wait for this embed to finish loading
+  const onLoad = useTrackedAsset()
   return (
     <iframe
       className="spotify-player"
@@ -19,7 +22,7 @@ export default function SpotifyPlayer({ playlistId }) {
       src={src}
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       allowFullScreen
-      loading="lazy"
+      onLoad={onLoad}
     />
   )
 }
