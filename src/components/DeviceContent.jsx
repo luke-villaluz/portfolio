@@ -14,7 +14,7 @@ export default function DeviceContent({ content }) {
     case 'gallery':
       return <CameraGallery photos={content.photos} />
     case 'spotify':
-      return <SpotifyPlayer playlistId={content.playlistId} />
+      return <SpotifyPlayer playlistId={content.playlistId} trackCount={content.trackCount} />
     case 'clock':
       return <PhoneClock />
     default:

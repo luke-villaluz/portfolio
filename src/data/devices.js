@@ -65,7 +65,9 @@ export const DEVICES = [
     to: 'https://open.spotify.com/user/jz20zkn2e54x9zk6yxlce7kct?si=d7e173c26bf34b2e',
     linkMode: 'overlay',
     screenRect: { left: 7.44, top: 4.62, width: 85.53, height: 39.08 }, // frame 712x1190
-    content: { kind: 'spotify', playlistId: '1CLnJlObG8nj2l7cofacn1' },
+    // trackCount sizes the embed to end right after the last song — update it
+    // whenever you add/remove tracks in the playlist (see SpotifyPlayer.css)
+    content: { kind: 'spotify', playlistId: '1CLnJlObG8nj2l7cofacn1', trackCount: 19 },
   },
   {
     id: 'phone',

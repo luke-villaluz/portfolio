@@ -2,15 +2,12 @@
    viewport for the Spotify embed. The embed renders its whole tracklist only
    when the iframe is tall enough — it fills its height with rows and has no
    internal scroll — so we size the iframe to fit the entire playlist and scroll
-   the screen instead. --sp-list-height is in cqw so it tracks the iPod width
-   (row height scales with width); it's tuned to end just after the last song.
-   Bump it if the playlist grows so the final tracks aren't cut off. */
+   the screen instead. */
 .music-screen {
   container-type: size;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none; /* Firefox */
-  --sp-list-height: 391cqw;
 }
 
 .music-screen::-webkit-scrollbar {
@@ -21,7 +18,13 @@
   position: static;
   display: block;
   width: 100%;
-  height: var(--sp-list-height);
+  /* Height is derived from the playlist length so the embed ends right after
+     the last track — no blank space when songs are removed, no cut-off when
+     added. At the iPod screen width the embed renders a ~65.7cqw header plus
+     ~16.26cqw per track (measured); cqw tracks the iPod width so rows scale
+     with it. --sp-track-count is set inline from the `trackCount` in
+     src/data/devices.js — just update that number when the playlist changes. */
+  height: calc(65.7cqw + 16.26cqw * var(--sp-track-count, 20));
   object-fit: unset;
   border: 0;
 }
