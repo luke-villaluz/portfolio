@@ -1,4 +1,3 @@
-import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import './Device.css'
 
@@ -40,9 +39,6 @@ function DeviceLink({ to, className, label, children }) {
  *                             fully under the bezel (hides the anti-aliased edge)
  * @param {string}  screenClassName - extra class on the screen element (for
  *                             content-specific styling, e.g. a scrollable embed)
- * @param {number}  initialScrollFrac - if set, the screen scrolls to
- *                             (fraction * screen width) px on mount. Used to open
- *                             a scrollable embed already scrolled past its header.
  * @param {string}  to        - if set, the device links here (route or external URL)
  * @param {'wrap'|'overlay'} linkMode - 'wrap' (default) makes the whole device a
  *                             link; 'overlay' puts the link *behind* the screen so
@@ -58,26 +54,10 @@ export default function Device({
   maxWidth = 520,
   bleed = 0.8,
   screenClassName = '',
-  initialScrollFrac,
   to,
   linkMode = 'wrap',
   children,
 }) {
-  const screenRef = useRef(null)
-
-  useLayoutEffect(() => {
-    if (initialScrollFrac == null) return
-    const el = screenRef.current
-    if (!el) return
-    const apply = () => {
-      el.scrollTop = initialScrollFrac * el.clientWidth
-    }
-    apply()
-    // re-apply if the layout settles/resizes so it stays past the header
-    window.addEventListener('resize', apply)
-    return () => window.removeEventListener('resize', apply)
-  }, [initialScrollFrac])
-
   const stage = (
     <div className="device__stage">
       {/* body-only link: sits behind the screen so an interactive screen still
@@ -88,7 +68,6 @@ export default function Device({
 
       {/* content sits behind the frame, bled outward under the bezel */}
       <div
-        ref={screenRef}
         className={`device__screen ${screenClassName}`.trim()}
         style={{
           left: `${screenRect.left - bleed}%`,

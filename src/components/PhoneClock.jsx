@@ -16,9 +16,21 @@ function format(now) {
 export default function PhoneClock() {
   const [now, setNow] = useState(() => new Date())
 
+  // Tick exactly on the minute boundary rather than polling: the displayed
+  // minute flips the instant it changes, and we wake once a minute instead of
+  // six times. Each tick schedules the next one, so it can't drift.
   useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 10000)
-    return () => clearInterval(id)
+    let id
+    const schedule = () => {
+      const current = new Date()
+      const msToNextMinute = 60000 - (current.getSeconds() * 1000 + current.getMilliseconds())
+      id = setTimeout(() => {
+        setNow(new Date())
+        schedule()
+      }, msToNextMinute)
+    }
+    schedule()
+    return () => clearTimeout(id)
   }, [])
 
   const { time, date } = format(now)

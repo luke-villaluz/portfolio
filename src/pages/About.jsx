@@ -4,7 +4,6 @@ import './About.css'
 
 export default function About() {
   const { bio, contact } = PROFILE
-  const telHref = `tel:${contact.phone.replace(/[^0-9+]/g, '')}`
 
   return (
     <Subpage title="About">
@@ -26,10 +25,6 @@ export default function About() {
           <a href={contact.github.url} target="_blank" rel="noreferrer">
             {contact.github.handle}
           </a>
-        </li>
-        <li>
-          <span className="about__label">Phone</span>
-          <a href={telHref}>{contact.phone}</a>
         </li>
       </ul>
     </Subpage>

@@ -1,30 +1,17 @@
-/* The iPod Device screen (given screenClassName="music-screen") is the scroll
-   viewport for the Spotify embed. The embed renders its whole tracklist only
-   when the iframe is tall enough — it fills its height with rows and has no
-   internal scroll — so we size the iframe to fit the entire playlist and scroll
-   the screen instead. */
-.music-screen {
-  container-type: size;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: none; /* Firefox */
-}
+/* The Spotify embed fills the iPod screen. At this size it renders its compact
+   layout — cover art, controls, and a tracklist that scrolls *inside* the
+   embed — so the entire playlist is reachable regardless of length and no
+   track count has to be kept in sync anywhere.
 
-.music-screen::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+   The embed's own page background is transparent and its card is #1f1f1f, so
+   the screen is painted the same colour: any space the card doesn't cover
+   blends into it instead of showing a black band. */
+.music-screen {
+  background: #1f1f1f;
 }
 
 .device__screen.music-screen > .spotify-player {
-  position: static;
-  display: block;
   width: 100%;
-  /* Height is derived from the playlist length so the embed ends right after
-     the last track — no blank space when songs are removed, no cut-off when
-     added. At the iPod screen width the embed renders a ~65.7cqw header plus
-     ~16.26cqw per track (measured); cqw tracks the iPod width so rows scale
-     with it. --sp-track-count is set inline from the `trackCount` in
-     src/data/devices.js — just update that number when the playlist changes. */
-  height: calc(65.7cqw + 16.26cqw * var(--sp-track-count, 20));
-  object-fit: unset;
+  height: 100%;
   border: 0;
 }

@@ -1,5 +1,6 @@
 .page {
   min-height: 100vh;
+  min-height: 100dvh; /* excludes mobile browser chrome; falls back above */
   padding: 4rem 2rem 6rem;
   display: flex;
   flex-direction: column;

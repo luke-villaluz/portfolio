@@ -1,5 +1,6 @@
 .subpage {
   min-height: 100vh;
+  min-height: 100dvh; /* excludes mobile browser chrome; falls back above */
   padding: 2rem 2rem 6rem;
   display: flex;
   flex-direction: column;

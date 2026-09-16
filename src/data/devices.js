@@ -1,14 +1,18 @@
-import macbookFrame from '../assets/frames/macbook_frame.png'
-import cameraFrame from '../assets/frames/a6700_frame.png'
-import ipodFrame from '../assets/frames/ipod_frame.png'
-import phoneFrame from '../assets/frames/cats22_frame.png'
-import meCoding from '../assets/images/me_coding.jpg'
+import macbookFrame from '../assets/frames/macbook_frame.webp'
+import cameraFrame from '../assets/frames/a6700_frame.webp'
+import ipodFrame from '../assets/frames/ipod_frame.webp'
+import phoneFrame from '../assets/frames/cats22_frame.webp'
+import meCoding from '../assets/images/me_coding.webp'
 
 // All camera photos, auto-loaded from src/assets/camera/. Drop new photos into
 // that folder and they appear here (sorted by filename); Vite fingerprints each
 // for cache-busting. No import lines to maintain.
+//
+// Export photos at ~1200px on the long edge before dropping them in — the
+// camera screen renders them ~250px wide, and the first photo is preloaded
+// before the landing page is shown, so a full-size export stalls first paint.
 const cameraPhotos = Object.entries(
-  import.meta.glob('../assets/camera/*.{jpg,jpeg,png,JPG,JPEG,PNG}', {
+  import.meta.glob('../assets/camera/*.{webp,jpg,jpeg,png,WEBP,JPG,JPEG,PNG}', {
     eager: true,
     import: 'default',
   }),
@@ -26,7 +30,6 @@ const cameraPhotos = Object.entries(
  *  - maxWidth:   max render width in px
  *  - bleed?:     % the screen content extends under the bezel (default in Device)
  *  - screenClassName?: extra class on the screen (content-specific styling)
- *  - initialScrollFrac?: open a scrollable screen already scrolled down
  *  - to?:        route path this device links to when clicked (omit = not clickable)
  *  - screenRect: screen-window rect as % of the (cropped) frame
  *  - content:    what to show inside — see DeviceContent for the kinds
@@ -65,9 +68,7 @@ export const DEVICES = [
     to: 'https://open.spotify.com/user/jz20zkn2e54x9zk6yxlce7kct?si=d7e173c26bf34b2e',
     linkMode: 'overlay',
     screenRect: { left: 7.44, top: 4.62, width: 85.53, height: 39.08 }, // frame 712x1190
-    // trackCount sizes the embed to end right after the last song — update it
-    // whenever you add/remove tracks in the playlist (see SpotifyPlayer.css)
-    content: { kind: 'spotify', playlistId: '1CLnJlObG8nj2l7cofacn1', trackCount: 19 },
+    content: { kind: 'spotify', playlistId: '1CLnJlObG8nj2l7cofacn1' },
   },
   {
     id: 'phone',
