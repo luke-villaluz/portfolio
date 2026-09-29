@@ -41,6 +41,16 @@ function slugify(name) {
     .replace(/^-|-$/g, '')
 }
 
+/** Does this path exist? */
+async function fileExists(target) {
+  try {
+    await fs.access(target)
+    return true
+  } catch {
+    return false
+  }
+}
+
 /** Skip work when the optimized file is already newer than its original. */
 async function isUpToDate(sourcePath, outputPath) {
   try {
@@ -170,8 +180,26 @@ ${entries}
 
 async function main() {
   const folders = await listAlbumFolders()
+
+  // No source albums: this is a fresh clone or a CI runner, where the raw
+  // originals aren't in git (see .gitignore) but the resized copies and the
+  // manifest are. Regenerating here would delete them and publish an empty
+  // gallery, so leave everything exactly as committed.
+  //
+  // The tradeoff: removing every album means deleting the generated files by
+  // hand. Removing *some* albums still prunes correctly.
   if (folders.length === 0) {
-    process.stdout.write('photos: no albums in src/assets/photos/ yet\n')
+    const hasCommittedOutput = await fileExists(MANIFEST)
+    process.stdout.write(
+      hasCommittedOutput
+        ? 'photos: no originals here — keeping the committed gallery as-is\n'
+        : 'photos: no albums in src/assets/photos/ yet\n',
+    )
+    if (!hasCommittedOutput) {
+      await fs.mkdir(path.dirname(MANIFEST), { recursive: true })
+      await fs.writeFile(MANIFEST, renderManifest([]))
+    }
+    return
   }
 
   const albums = []

@@ -85,7 +85,7 @@ src/
     devices.js        # the landing page: every device, in display order
     profile.js        # name, bio, contact links
     work.js           # experience + projects on the Work page
-    photoAlbums.generated.js  # GENERATED, gitignored — see scripts/build-photos.mjs
+    photoAlbums.generated.js  # GENERATED (committed) — see scripts/build-photos.mjs
   pages/
     Home.jsx/.css     # the device grid
     About.jsx/.css    # bio + contact
@@ -109,8 +109,8 @@ src/
     frames/           # device frame images (transparent screen window)
     images/           # single images (e.g. laptop)
     camera/           # the cover photo shown inside the camera on the landing page
-    photos/           # ← your albums, one folder per trip (see its README)
-    photos-optimized/ # GENERATED, gitignored — resized copies of the above
+    photos/           # ← your albums, one folder per trip — originals GITIGNORED
+    photos-optimized/ # GENERATED (committed) — resized copies, what the site serves
 ```
 
 `src/data/` is the single source of truth for what the site says.
@@ -159,10 +159,15 @@ as WebP into `src/assets/photos-optimized/`, and writes
 `src/data/photoAlbums.generated.js` with each photo's final dimensions so the
 page reserves the right space and the strip doesn't jump while loading.
 
-Both outputs are gitignored: they're derived from your originals and rebuilt on
-every machine and in CI, so only the originals are committed. A photo already
-processed is skipped on later builds unless you've changed it, and deleting an
-original removes its optimized copy on the next build.
+**What's committed.** The opposite of what you'd expect, and deliberately: your
+raw originals are gitignored (~10MB each; git keeps every version of every file
+forever, so a few trips would bloat the repo past easy repair), while the
+resized WebP copies and the generated album list *are* committed (~100KB each).
+Deploys build from those, so CI never needs your originals — keep those in
+Lightroom or on a backup drive.
+
+A photo already processed is skipped on later builds unless you've changed it,
+and deleting an original removes its optimized copy on the next build.
 
 To change how tall photos render, edit `--photo-height` in `Photos.css`; to
 change the exported resolution, edit `OUTPUT_HEIGHT` in the script.

@@ -33,6 +33,27 @@ to a fixed height (width follows the photo's own aspect ratio, so portrait
 shots and panoramas sit in the same row at the same height, uncropped) and
 re-encodes it as WebP.
 
-The results land in `src/assets/photos-optimized/`, which is gitignored — only
-the originals in this folder are committed. Deleting a photo here removes its
-optimized copy on the next build.
+## What gets committed
+
+**Your originals in this folder are gitignored.** They're ~10MB each, and git
+keeps every version of every file forever, so committing them would bloat the
+repo permanently — one trip is ~200MB. Keep them in Lightroom or on your
+backup drive.
+
+What *is* committed is `src/assets/photos-optimized/` — the resized WebP copies,
+around 100KB each — plus the generated album list. That's what the site serves,
+and it's what CI builds from, so deploys don't need your originals at all.
+
+So the flow after dropping a folder in here is:
+
+```bash
+npm run photos    # resize the new photos (npm run dev/build does this too)
+git add -A
+git commit -m "Add Palouse photos"
+git push
+```
+
+If you ever delete *every* album, the script leaves the generated files alone
+(it can't tell that apart from a fresh clone) — delete
+`src/assets/photos-optimized/` and `src/data/photoAlbums.generated.js` by hand.
+Removing one album out of several prunes normally.

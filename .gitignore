@@ -1,11 +1,12 @@
 node_modules
 dist
+.claude
 .DS_Store
 *.local
 .wrangler
 
-# Derived from src/assets/photos/ by scripts/build-photos.mjs on every build.
-# Only your original photos are committed; these are rebuilt on every machine
-# and in CI, so they'd only ever be merge conflicts if they were tracked.
-src/assets/photos-optimized
-src/data/photoAlbums.generated.js
+# Your raw camera exports stay out of git — they're ~10MB each and git keeps
+# every version of every file forever, so committing them would bloat the repo
+# permanently. Keep the originals in Lightroom / your backup drive.
+# What ships to the site is the resized copies below, which ARE committed.
+src/assets/photos/*/
