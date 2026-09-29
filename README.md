@@ -133,15 +133,18 @@ src/
 
 ## Photo albums
 
-Each folder in `src/assets/photos/` becomes a section on `/photos` — folder
-name as the heading, its photos as a horizontal strip, a divider, then the next
-album. Clicking the camera on the landing page opens it.
+Each folder in `src/assets/photos/` becomes a section on `/photos` — the folder
+name, verbatim, as the heading, its photos as a horizontal strip, a divider,
+then the next album. Clicking the camera on the landing page opens it.
 
 ```
 src/assets/photos/
   Palouse/                    ->  "Palouse"
-  gifford pinchot forest/     ->  "Gifford Pinchot Forest"
+  Gifford Pinchot Forest/     ->  "Gifford Pinchot Forest"
 ```
+
+Whatever you name the folder is exactly what appears on the page — albums are
+ordered alphabetically by that name.
 
 Adding a trip is: make the folder, drop photos in, commit, push. No code
 change, no resizing, no list to keep in sync. `src/assets/photos/README.md`

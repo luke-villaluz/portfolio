@@ -33,21 +33,7 @@ const OUTPUT_HEIGHT = 720
 const QUALITY = 80
 const IMAGE_RE = /\.(jpe?g|png|webp|tiff?|avif)$/i
 
-/**
- * "01-gifford pinchot forest" -> "Gifford Pinchot Forest".
- *
- * A leading number is an ordering hint and is stripped from the display name,
- * so you can force album order with 01-, 02- … without it showing on the page.
- * A folder that already has capitals is left alone, so deliberate casing
- * ("Palouse", "SLO", "McCall") survives.
- */
-function albumNameFromFolder(folder) {
-  const withoutOrder = folder.replace(/^\d+[\s._-]+/, '')
-  const spaced = withoutOrder.replace(/[_-]+/g, ' ').trim()
-  if (/[A-Z]/.test(spaced)) return spaced
-  return spaced.replace(/\b\w/g, (c) => c.toUpperCase())
-}
-
+/** URL/React-key-safe id derived from the folder name. */
 function slugify(name) {
   return name
     .toLowerCase()
@@ -153,7 +139,9 @@ function renderManifest(albums) {
 
   const entries = albums
     .map((album) => {
-      const name = albumNameFromFolder(album.folder)
+      // The heading is the folder name, verbatim — what you name the folder is
+      // exactly what shows on the page.
+      const name = album.folder
       const photos = album.photos
         .map((p) => `      { src: ${p.importName}, width: ${p.width}, height: ${p.height} },`)
         .join('\n')

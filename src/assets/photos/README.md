@@ -8,7 +8,7 @@ photos/
   Palouse/                    ->  "Palouse"
     001.jpg
     002.jpg
-  gifford pinchot forest/     ->  "Gifford Pinchot Forest"
+  Gifford Pinchot Forest/     ->  "Gifford Pinchot Forest"
     sunrise.jpg
 ```
 
@@ -17,13 +17,11 @@ no code change, no resizing, no list to update anywhere.
 
 ## Naming
 
-- **Album heading** comes from the folder name. A folder that's already
-  capitalised is left alone (`Palouse`, `SLO`); an all-lowercase one gets title
-  cased (`gifford pinchot forest` → `Gifford Pinchot Forest`). Dashes and
-  underscores become spaces.
-- **Album order** is alphabetical. To force a different order, prefix folders
-  with numbers — `01-Palouse`, `02-Gifford Pinchot Forest`. The number is
-  stripped from the heading.
+- **Album heading is the folder name, exactly as you type it.** Nothing is
+  capitalised, reworded, or stripped — name the folder `Gifford Pinchot Forest`
+  and that's the heading. Name it `gifford pinchot forest` and that's the
+  heading too.
+- **Album order** is alphabetical by folder name.
 - **Photo order** within an album is by filename, sorted naturally, so
   `1.jpg, 2.jpg, 10.jpg` come out in that order rather than `1, 10, 2`.
 
