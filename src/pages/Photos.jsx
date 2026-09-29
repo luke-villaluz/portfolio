@@ -19,7 +19,9 @@ export default function Photos() {
       )}
 
       {ALBUMS.map((album) => (
-        <section key={album.slug} className="photos__album">
+        {/* keyed on the folder name, which the filesystem already guarantees is
+            unique — two differently-named folders can share a slug */}
+        <section key={album.name} className="photos__album">
           <h2 className="photos__album-name">{album.name}</h2>
 
           {/* Horizontal strip. Every photo is exported to the same pixel
