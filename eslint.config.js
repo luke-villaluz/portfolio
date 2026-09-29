@@ -5,7 +5,8 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import prettier from 'eslint-config-prettier'
 
 export default [
-  { ignores: ['dist'] },
+  // dist is built output; the .generated file is rebuilt from src/assets/photos/
+  { ignores: ['dist', 'src/data/photoAlbums.generated.js'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -28,9 +29,9 @@ export default [
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
-  // config files run in Node
+  // config files and build scripts run in Node
   {
-    files: ['*.config.js'],
+    files: ['*.config.js', 'scripts/**/*.mjs'],
     languageOptions: { globals: globals.node },
   },
   prettier,

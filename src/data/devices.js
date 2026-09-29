@@ -54,6 +54,7 @@ export const DEVICES = [
     alt: 'Sony a6700 camera',
     label: 'my camera',
     maxWidth: 480,
+    to: '/photos',
     screenRect: { left: 14.93, top: 32.68, width: 52.19, height: 60.14 }, // frame 958x557
     content: { kind: 'gallery', photos: cameraPhotos },
   },

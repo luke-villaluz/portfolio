@@ -3,3 +3,9 @@ dist
 .DS_Store
 *.local
 .wrangler
+
+# Derived from src/assets/photos/ by scripts/build-photos.mjs on every build.
+# Only your original photos are committed; these are rebuilt on every machine
+# and in CI, so they'd only ever be merge conflicts if they were tracked.
+src/assets/photos-optimized
+src/data/photoAlbums.generated.js

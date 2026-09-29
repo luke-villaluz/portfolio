@@ -4,7 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "photos": "node scripts/build-photos.mjs",
+    "predev": "npm run photos",
     "dev": "vite",
+    "prebuild": "npm run photos",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
@@ -24,6 +27,7 @@
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
     "prettier": "^3.9.5",
+    "sharp": "^0.35.5",
     "vite": "^6.0.7"
   },
   "allowScripts": {

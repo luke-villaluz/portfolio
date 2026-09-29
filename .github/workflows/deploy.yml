@@ -1,0 +1,57 @@
+# Continuous deployment: every push to main rebuilds the site and ships it to
+# Cloudflare. Adding a trip means committing a folder of photos and pushing —
+# GitHub runs everything below on its own machine and the live site updates.
+#
+# One-time setup before this can work (see the README's "Deploy" section):
+#   1. Create a Cloudflare API token with the "Edit Cloudflare Workers" template.
+#   2. In GitHub: Settings → Secrets and variables → Actions → New repository
+#      secret, twice — CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID.
+# Secrets are write-only: the workflow can read them, nobody can read them back
+# out of the repo, which is why the token is never committed to a file here.
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  # lets you re-run a deploy from the Actions tab without pushing a commit
+  workflow_dispatch:
+
+# If you push twice quickly, cancel the older run rather than racing two
+# deploys — whichever commit is newest is the one that should end up live.
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # copy the repo onto the runner
+      - uses: actions/checkout@v5
+
+      # install the Node version pinned in .node-version, and cache npm's
+      # downloads between runs so installs stay fast
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      # `npm ci` installs exactly what package-lock.json says — the point of a
+      # deploy is to build what you tested, not whatever is newest today
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # `prebuild` runs scripts/build-photos.mjs automatically, so any photos in
+      # this commit are resized here on the runner. That's why the optimized
+      # files and the generated manifest don't need to be committed.
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -26,6 +26,12 @@
   margin-top: 14vh;
 }
 
+/* gallery pages need more room than a column of prose */
+.subpage__content--wide {
+  max-width: 1100px;
+  margin-top: 8vh;
+}
+
 .subpage__title {
   margin: 0 0 1.5rem;
   font-weight: 500;
