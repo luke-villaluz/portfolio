@@ -3,6 +3,12 @@
 // `npm run dev` and `npm run build`. To change what's here, add or remove a
 // folder of photos in src/assets/photos/ — not this file.
 
+import pd1c3cf4db3 from '../assets/photos-optimized/Eastern Columbia River/DSC00934.webp'
+import p18a28fdaac from '../assets/photos-optimized/Eastern Columbia River/DSC00940.webp'
+import pb0b0b1a383 from '../assets/photos-optimized/Eastern Columbia River/DSC00946.webp'
+import pd48fe54836 from '../assets/photos-optimized/Eastern Columbia River/DSC00959.webp'
+import p325e21f7d5 from '../assets/photos-optimized/Eastern Columbia River/DSC00977.webp'
+import pc8ce5b044f from '../assets/photos-optimized/Eastern Columbia River/DSC01002.webp'
 import p151dd502c2 from '../assets/photos-optimized/Palouse/DSC01277.webp'
 import p427bebb9c0 from '../assets/photos-optimized/Palouse/DSC01293.webp'
 import p0f3b2c3168 from '../assets/photos-optimized/Palouse/DSC01334.webp'
@@ -17,6 +23,18 @@ import p3057c66f03 from '../assets/photos-optimized/Palouse/DSC01706.webp'
 import p1ab5200549 from '../assets/photos-optimized/Palouse/DSC01713.webp'
 
 export const ALBUMS = [
+  {
+    slug: "eastern-columbia-river",
+    name: "Eastern Columbia River",
+    photos: [
+      { src: pd1c3cf4db3, width: 1080, height: 720 },
+      { src: p18a28fdaac, width: 480, height: 720 },
+      { src: pb0b0b1a383, width: 1080, height: 720 },
+      { src: pd48fe54836, width: 1080, height: 720 },
+      { src: p325e21f7d5, width: 1080, height: 720 },
+      { src: pc8ce5b044f, width: 1081, height: 720 },
+    ],
+  },
   {
     slug: "palouse",
     name: "Palouse",
