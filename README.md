@@ -6,66 +6,40 @@ opens the matching page.
 
 ## Run it
 
+Two commands. That's the whole workflow.
+
 ```bash
-npm install
-npm run dev      # start the dev server
-npm run build    # production build (dist/)
-npm run preview  # preview the production build
-npm run lint     # ESLint
-npm run format   # Prettier (writes src/)
+npm run build      # resize new photos, build, and open it at localhost:4173
+npx wrangler deploy  # put it live at lukevillaluz.com
+```
+
+`npm run build` leaves a preview server running so you can look at the site
+before you ship it. Press `Ctrl+C` when you're done looking, then deploy.
+
+To add photos: drop a folder into `src/assets/photos/`, then run those two
+commands. Resizing happens automatically inside `npm run build` — you never
+run it yourself.
+
+Optional, if you want live-reloading while editing code:
+
+```bash
+npm run dev        # localhost:5173, reloads as you save
 ```
 
 Requires Node (installed via Homebrew: `brew install node`).
 
-## Deploy
-
 Hosted on Cloudflare as an assets-only Worker, configured in `wrangler.jsonc`
 (custom domain `lukevillaluz.com`, SPA fallback so deep links work).
 
-**Normally you don't run anything.** `.github/workflows/deploy.yml` deploys on
-every push to `main`: GitHub spins up a fresh Linux machine, installs the
-dependencies, lints, builds (which resizes any new photos), and runs
-`wrangler deploy`. Push a folder of photos and the live site updates itself.
+### Saving your work to GitHub
 
-### One-time setup
-
-The workflow needs permission to talk to your Cloudflare account. Credentials
-never get committed — they live in GitHub's encrypted secrets, which workflows
-can read and people can't.
-
-1. **Make a Cloudflare API token.** Cloudflare dashboard → My Profile → API
-   Tokens → Create Token → use the **Edit Cloudflare Workers** template →
-   Create. Copy the token; it's shown exactly once.
-2. **Grab your account ID.** It's in the URL when you're in the Cloudflare
-   dashboard (`dash.cloudflare.com/<account-id>/…`), and on the Workers
-   overview page.
-3. **Add both to GitHub.** Repo → Settings → Secrets and variables → Actions →
-   New repository secret, twice:
-   - `CLOUDFLARE_API_TOKEN`
-   - `CLOUDFLARE_ACCOUNT_ID`
-
-Push to `main` and watch it run under the repo's **Actions** tab. A failed step
-shows its logs there — that's where to look when a deploy doesn't land.
-
-### Deploying by hand
-
-Still works, and it's what to fall back on if CI is broken:
+Separate from deploying, and not required for the site to be live:
 
 ```bash
-npm run build
-npx wrangler deploy
+git add .
+git commit -m "new photos"
+git push
 ```
-
-### What the workflow does, step by step
-
-| Step | Why |
-| --- | --- |
-| `actions/checkout` | copies the repo onto the runner |
-| `actions/setup-node` | installs the Node version in `.node-version`, caches npm |
-| `npm ci` | installs *exactly* what `package-lock.json` pins, so you deploy what you tested |
-| `npm run lint` | a broken build fails here instead of on the live site |
-| `npm run build` | `prebuild` resizes new photos, then Vite bundles into `dist/` |
-| `wrangler-action` | uploads `dist/` to Cloudflare |
 
 ## Structure
 
@@ -75,8 +49,6 @@ public/
   og-image.jpg        # link-preview thumbnail (served unhashed at /og-image.jpg)
 scripts/
   build-photos.mjs    # resizes src/assets/photos/ before every dev/build
-.github/workflows/
-  deploy.yml          # build + deploy on every push to main
 src/
   main.jsx            # React entry: asset gate + router
   App.jsx             # route table (/, /about, /work, /photos)

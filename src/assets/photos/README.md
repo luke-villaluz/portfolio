@@ -12,8 +12,9 @@ photos/
     sunrise.jpg
 ```
 
-To add a trip: make a folder, drop the photos in, commit, push. Nothing else —
-no code change, no resizing, no list to update anywhere.
+To add a trip: make a folder, drop the photos in, then run `npm run build` and
+`npx wrangler deploy`. Nothing else — no code change, no resizing, no list to
+update anywhere.
 
 ## Naming
 
@@ -41,17 +42,7 @@ repo permanently — one trip is ~200MB. Keep them in Lightroom or on your
 backup drive.
 
 What *is* committed is `src/assets/photos-optimized/` — the resized WebP copies,
-around 100KB each — plus the generated album list. That's what the site serves,
-and it's what CI builds from, so deploys don't need your originals at all.
-
-So the flow after dropping a folder in here is:
-
-```bash
-npm run photos    # resize the new photos (npm run dev/build does this too)
-git add -A
-git commit -m "Add Palouse photos"
-git push
-```
+around 100KB each. That's what the site serves.
 
 If you ever delete *every* album, the script leaves the generated files alone
 (it can't tell that apart from a fresh clone) — delete

@@ -5,11 +5,10 @@
   "type": "module",
   "scripts": {
     "photos": "node scripts/build-photos.mjs",
+    "prebuild": "npm run photos",
+    "build": "vite build && vite preview",
     "predev": "npm run photos",
     "dev": "vite",
-    "prebuild": "npm run photos",
-    "build": "vite build",
-    "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier -w src"
   },
