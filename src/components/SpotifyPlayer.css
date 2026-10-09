@@ -1,7 +1,6 @@
-/* The Spotify embed fills the iPod screen. At this size it renders its compact
-   layout — cover art, controls, and a tracklist that scrolls *inside* the
-   embed — so the entire playlist is reachable regardless of length and no
-   track count has to be kept in sync anywhere.
+/* The Spotify embed is laid out at a normal width and scaled down to the iPod
+   screen by SpotifyPlayer.jsx (inline width/height/transform), so the embed
+   renders its proper layout and scrolls its own tracklist.
 
    The embed's own page background is transparent and its card is #1f1f1f, so
    the screen is painted the same colour: any space the card doesn't cover
@@ -11,7 +10,7 @@
 }
 
 .device__screen.music-screen > .spotify-player {
-  width: 100%;
-  height: 100%;
+  display: block;
   border: 0;
+  transform-origin: 0 0;
 }

@@ -21,6 +21,11 @@ import pfec212e9ed from '../assets/photos-optimized/Palouse/DSC01568.webp'
 import p5c8cc99071 from '../assets/photos-optimized/Palouse/DSC01622.webp'
 import p3057c66f03 from '../assets/photos-optimized/Palouse/DSC01706.webp'
 import p1ab5200549 from '../assets/photos-optimized/Palouse/DSC01713.webp'
+import p5f0633bff8 from '../assets/photos-optimized/Southeastern Oregon : Nevada/1.webp'
+import p6c66106530 from '../assets/photos-optimized/Southeastern Oregon : Nevada/2.webp'
+import pa1e6a0fc4d from '../assets/photos-optimized/Southeastern Oregon : Nevada/3.webp'
+import p39987e5159 from '../assets/photos-optimized/Southeastern Oregon : Nevada/4.webp'
+import pa2a167ef08 from '../assets/photos-optimized/Southeastern Oregon : Nevada/5.webp'
 
 export const ALBUMS = [
   {
@@ -51,6 +56,17 @@ export const ALBUMS = [
       { src: p5c8cc99071, width: 1080, height: 720 },
       { src: p3057c66f03, width: 1080, height: 720 },
       { src: p1ab5200549, width: 1080, height: 720 },
+    ],
+  },
+  {
+    slug: "southeastern-oregon-nevada",
+    name: "Southeastern Oregon : Nevada",
+    photos: [
+      { src: p5f0633bff8, width: 1080, height: 720 },
+      { src: p6c66106530, width: 1280, height: 720 },
+      { src: pa1e6a0fc4d, width: 1280, height: 720 },
+      { src: p39987e5159, width: 1280, height: 720 },
+      { src: pa2a167ef08, width: 1080, height: 720 },
     ],
   },
 ]
